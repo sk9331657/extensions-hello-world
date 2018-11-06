@@ -15,7 +15,7 @@ function createRequest(type, method) {
 
     return {
         type: type,
-        url: 'https://localhost:8081/color/' + method,
+        url: 'http://localhost:8081/color/' + method,
         success: updateBlock,
         error: logError
     }

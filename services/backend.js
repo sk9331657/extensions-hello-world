@@ -14,18 +14,12 @@
  *    limitations under the License.
  */
 
-const fs = require('fs');
 const Hapi = require('hapi');
-const path = require('path');
 const Boom = require('boom');
 const color = require('color');
 const ext = require('commander');
 const jsonwebtoken = require('jsonwebtoken');
 const request = require('request');
-
-// The developer rig uses self-signed certificates.  Node doesn't accept them
-// by default.  Do not use this in production.
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 
 // Use verbose logging during development.  Set this to false for production.
 const verboseLogging = true;
@@ -76,11 +70,6 @@ clientId = getOption('clientId', 'ENV_CLIENT_ID', clientId);
 const server = new Hapi.Server({
   host: 'localhost',
   port: 8081,
-  tls: {
-    // If you need a certificate, execute "npm run cert".
-    key: fs.readFileSync(path.resolve(__dirname, '..', 'conf', 'server.key')),
-    cert: fs.readFileSync(path.resolve(__dirname, '..', 'conf', 'server.crt')),
-  },
   routes: {
     cors: {
       origin: ['*'],
